@@ -48,7 +48,9 @@ brew install boot2docker
 brew install docker
 brew install emacs
 brew install fasd
+brew install ffmpeg
 brew install git
+brew install htop-osx
 brew install httpie
 brew install imagemagick --with-webp
 brew install lynx

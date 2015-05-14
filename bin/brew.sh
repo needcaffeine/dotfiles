@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo "Updating brew formulae and running cask operations."
+echo "This script requires sudo access to run."
+echo
+
 # Install command-line tools using Homebrew.
 
 # Ask for the administrator password upfront.

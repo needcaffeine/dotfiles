@@ -52,16 +52,19 @@ brew install boot2docker
 brew install docker
 brew install emacs
 brew install fasd
-brew install ffmpeg
 brew install git
+brew install heroku-toolbelt
 brew install htop-osx
 brew install httpie
 brew install imagemagick --with-webp
+brew install jq
 brew install lynx
 brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit
+brew install mysql
 brew install p7zip
 brew install pigz
 brew install pv
+brew install redis
 brew install rename
 brew install s3cmd
 brew install speedtest_cli
@@ -75,6 +78,7 @@ brew install webkit2png
 # installation method.
 brew install node
 npm install -g grunt-cli
+npm install -g gulp-cli
 npm install -g bower
 
 # We want to use pip and virtualenv and all of that.
@@ -97,16 +101,15 @@ brew cask install dropbox
 brew cask install emacs
 brew cask install firefox
 brew cask install flux
-brew cask install garmin-communicator
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install joinme
 brew cask install keepingyouawake
+brew cask install knock
 brew cask install lastpass
 brew cask install microsoft-office
 brew cask install nvalt
-brew cask install phpstorm
-brew cask install postbox
+brew cask install panic-unison
 brew cask install picasa
 brew cask install skype
 brew cask install slack
@@ -123,7 +126,6 @@ brew cask install ynab
 # Alternate versions
 brew tap caskroom/versions
 brew cask install iterm2-beta
-brew cask install sublime-text3
 
 # Remove outdated versions from the cellar.
 brew cleanup

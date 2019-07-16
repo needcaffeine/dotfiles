@@ -1,0 +1,99 @@
+[include]
+    path = ~/.gitconfig.local
+
+[alias]
+    # add
+    a = add --all
+    ap = add --patch
+
+    # branch
+    b = branch -v                       # verbose
+
+    # commit
+    c = commit -v                       # open up an editor
+    cam = commit --amend
+
+    # checkout
+    co = checkout
+    cb = checkout -b                    # new branch
+
+    # credit an author on the latest commit.
+    credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+
+    # List contributors with number of commits
+    contributors = shortlog --summary --numbered
+
+    # diff
+    d = diff
+    dc = diff --cached                  # diff unstaged changes
+
+    # fetch
+    f = fetch origin
+
+    # log
+    l = log --graph --date=short
+
+    # push
+    p = push origin
+
+    # status
+    s = status
+
+[apply]
+    # Detect whitespace errors when applying a patch
+    whitespace = fix
+
+[branch]
+    autosetupmerge = true
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red
+    new = green
+
+[core]
+    autocrlf = false
+    editor = vim
+
+    # Treat spaces before tabs and all kinds of trailing whitespace as an error
+	# [default] trailing-space: looks for spaces at the end of a line
+	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
+	# Make `git rebase` safer on OS X
+	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+	trustctime = false
+	editor = vim
+
+[format]
+    pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+
+[merge]
+    summary = true
+    verbosity = 1
+    tool = mvimdiff
+
+[mergetool]
+    prompt = false
+
+[push]
+    # 'git push' will push the current branch to its tracking branch
+    # the usual default is to push all branches
+    default = upstream
+
+[rerere]
+    # Remember my merges
+    # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
+    enabled = true
+
+[commit]
+	gpgsign = false

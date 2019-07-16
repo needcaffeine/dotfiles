@@ -1,20 +1,30 @@
-# My dotfiles
+# dotfiles
 
-You always have the option of building your dotfiles repo from scratch, or looking through the work of others for inspiration: https://dotfiles.github.io/
+## disclaimers
 
-At present, I start with someone else's dotfiles, in this case the very famous and mega useful YADR: https://github.com/skwp/dotfiles
+- Buyer beware
+- These dotfiles are guaranteed to work only in Mac OS. They will probably also work in Linux but I have not tested them.
 
-To get started, run:
-```bash
-sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
-```
+## installing
 
-Next, I have a script that installs all my [homebrew][1] utilities; things that should have been part of OS X but Apple left out. This script also manages _most_ of my applications through [Cask][2]. You may examine the contents of the script [here][3]. If you want to follow my recommendation and just install all the same things, run:
-```bash
-sh -c "`curl -fsSL https://raw.githubusercontent.com/needcaffeine/dotfiles/master/bin/brew.sh`"
-```
-This script is going to take a while to finish but it'll save you several hours of work, especially when you're setting up a new Mac. Run it every now and then to upgrade all your applications.
+    $ git clone git@github.com:needcaffeine/dotfiles ~/.dotfiles
+    $ cd ~/.dotfiles
+    $ make
 
-[1]: http://brew.sh/
-[2]: http://caskroom.io/
-[3]: https://github.com/needcaffeine/dotfiles/blob/master/bin/brew.sh
+Running `make` will show you all available options. You may decide you don't want all the things this repo does.
+
+## updating
+
+You may periodically need to pull in my latest changes.
+
+    $ cd ~/.dotfiles
+    $ git pull
+    $ make
+
+## thanks
+
+I stole bits and pieces from:
+- [holman](https://github.com/holman/dotfiles)
+- [jessfraz](https://github.com/jessfraz/dotfiles)
+- [mathiasbynens](https://github.com/mathiasbynens/dotfiles)
+- [skwp](https://github.com/skwp/dotfiles)

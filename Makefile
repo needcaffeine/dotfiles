@@ -23,10 +23,14 @@ clean: #! Clean up all traces of these dotfiles.
 .PHONY: shell
 shell: #! Update bash to the newest version.
 	brew install bash bash-completion2
+	brew cask install iterm2
 	if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then \
   		echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells; \
   		chsh -s "${BREW_PREFIX}/bin/bash"; \
 	fi;
+
+	# Install the Solarized Dark theme
+	open "$(CURDIR)/system/Solarized Dark.itermcolors"
 
 .PHONY: dnsmasq
 dnsmasq: #! Set up dnsmasq for routing to .docker hosts.

@@ -46,6 +46,7 @@ alias gcb="git cb"
 alias gd="git d"
 alias gdc="git dc"
 alias gf="git f"
+alias gfo="git f"
 alias gl="git l"
 alias gp="git p"
 alias gpf="git pf"
@@ -53,6 +54,9 @@ alias gs="git s"
 
 # Docker development
 alias traefik="docker stop traefik && docker rm traefik; docker pull traefik && docker run --name traefik -d -p 8080:8080 -p 80:80 -v ~/.rs/traefik.toml:/etc/traefik/traefik.toml -v /var/run/docker.sock:/var/run/docker.sock traefik"
+
+# Aliases for bin tools
+alias composer.phar="composer"
 
 # Pipe my public/private keys to the clipboard.
 alias pubkey="more ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key copied to pasteboard.'"

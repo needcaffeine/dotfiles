@@ -35,7 +35,8 @@ shell: #! Update bash to the newest version.
 .PHONY: dnsmasq
 dnsmasq: #! Set up dnsmasq for routing to .docker hosts.
 	brew install dnsmasq
-	$(RM) -f /usr/local/etc/dnsmasq.conf && \
+	$(RM) /usr/local/etc/dnsmasq.conf && \
+		mkdir -p /usr/local/etc/dnsmasq.d && \
 		ln -sfn $(CURDIR)/dnsmasq/dnsmasq.conf /usr/local/etc/dnsmasq.conf && \
 		ln -sfn $(CURDIR)/dnsmasq/dnsmasq.d/docker.conf /usr/local/etc/dnsmasq.d/docker.conf
 	sudo mkdir -p /etc/resolver && \

@@ -35,6 +35,7 @@
 
     # push
     p = push origin
+    pf = push origin --force
 
     # status
     s = status

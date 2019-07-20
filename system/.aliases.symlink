@@ -48,8 +48,10 @@ alias gdc="git dc"
 alias gf="git f"
 alias gfo="git f"
 alias gl="git l"
+alias gm="git m"
 alias gp="git p"
 alias gpf="git pf"
+alias grh="git rh"
 alias gs="git s"
 
 # Docker development

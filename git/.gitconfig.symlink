@@ -33,9 +33,15 @@
     # log
     l = log --graph --date=short
 
+    # merge
+    m = merge
+
     # push
     p = push origin
     pf = push origin --force
+
+    # reset
+    rh = reset --hard
 
     # status
     s = status

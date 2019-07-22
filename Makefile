@@ -6,7 +6,7 @@ PREFIX ?= $(PWD)
 BREW_PREFIX=$(brew --prefix)
 
 .PHONY: all
-all: clean shell dotfiles dnsmasq
+all: clean bootstrap dotfiles dnsmasq
 
 .PHONY: help
 help: #! Show this help message.
@@ -14,6 +14,11 @@ help: #! Show this help message.
 	@echo ''
 	@echo 'Targets:'
 	@fgrep -h "#!" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e "s/:.*#!/:/" | column -t -s":"
+
+.PHONY: bootstrap
+bootstrap: #! Set up our prerequisites.
+	@echo 'Setting up necessary dependencies...'
+	@/bin/sh bootstrap/install.sh
 
 .PHONY: clean
 clean: #! Clean up all traces of these dotfiles.
@@ -53,3 +58,9 @@ dotfiles: #! Install the dotfiles.
 	done;
 
 	@echo 'Dotfiles have been installed. Restart your shell.'
+
+.PHONY: installers
+installers: #! Run any installers.
+	for installer in $(shell find -H $(CURDIR) -maxdepth 2 -name install.sh -not -path '*.git' -not -path '*bootstrap*'); do \
+		/bin/sh $$installer; \
+	done;

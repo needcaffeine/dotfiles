@@ -15,6 +15,7 @@
 
     # checkout
     co = checkout
+    cp = cherry-pick
     cb = checkout -b                    # new branch
 
     # credit an author on the latest commit.

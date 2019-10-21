@@ -56,7 +56,7 @@ alias grh="git rh"
 alias gs="git s"
 
 # Docker development
-alias traefik="docker stop traefik && docker rm traefik; docker pull traefik && docker run --name traefik -d -p 8080:8080 -p 80:80 -v ~/.rs/traefik.toml:/etc/traefik/traefik.toml -v /var/run/docker.sock:/var/run/docker.sock traefik"
+alias traefik='docker stop traefik && docker rm traefik; docker pull traefik:v2.0 && docker run --name traefik -d -p 8080:8080 -p 80:80 -p 443:443 -v /var/run/docker.sock:/var/run/docker.sock traefik:v2.0 --api.insecure=true --entrypoints.web.address=:80 --entrypoints.web-secure.address=:443 --providers.docker --providers.docker.defaultRule="Host(\`{{ normalize .Name }}.docker\`)"'
 
 # Aliases for bin tools
 alias composer.phar="composer"

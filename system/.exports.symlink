@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Initialize fasd
+eval "$(fasd --init auto)"

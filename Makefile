@@ -34,6 +34,10 @@ shell: #! Update bash to the newest version.
   		chsh -s "${BREW_PREFIX}/bin/bash"; \
 	fi;
 
+	# Install fasd, a command line productivity booster
+	# https://github.com/clvv/fasd
+	brew install fasd
+
 	# Install the Solarized Dark theme
 	open "$(CURDIR)/system/Solarized Dark.itermcolors"
 

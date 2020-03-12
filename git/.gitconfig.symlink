@@ -44,6 +44,10 @@
     # reset
     rh = reset --hard
 
+    # stash
+    st = stash -u
+    stp = stash pop
+
     # status
     s = status
 

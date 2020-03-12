@@ -46,6 +46,7 @@ alias gcp="git cp"
 alias gcb="git cb"
 alias gd="git d"
 alias gdc="git dc"
+alias gdep="git deploy"
 alias gf="git f"
 alias gfo="git f"
 alias gl="git l"
@@ -54,6 +55,10 @@ alias gp="git p"
 alias gpf="git pf"
 alias grh="git rh"
 alias gs="git s"
+alias gst="git st"
+alias gstp="git stp"
+
+alias deploy="gst && gfo && gco develop && grh origin/develop && gco master && grh origin/master && gm -v develop && git stp"
 
 # Docker development
 alias traefik='docker stop traefik && docker rm traefik; docker pull traefik:v2.0 && docker run --name traefik -d -p 8080:8080 -p 80:80 -p 443:443 -v /var/run/docker.sock:/var/run/docker.sock traefik:v2.0 --api.insecure=true --entrypoints.web.address=:80 --entrypoints.web-secure.address=:443 --providers.docker --providers.docker.defaultRule="Host(\`{{ normalize .Name }}.docker\`)"'

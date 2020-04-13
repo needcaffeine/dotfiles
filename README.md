@@ -7,7 +7,7 @@
 
 ## installing
 
-    $ git clone git@github.com:needcaffeine/dotfiles ~/.dotfiles
+    $ git clone https://github.com/needcaffeine/dotfiles.git ~/.dotfiles
     $ cd ~/.dotfiles
     $ make
 

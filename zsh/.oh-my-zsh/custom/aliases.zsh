@@ -1,26 +1,10 @@
-#!/bin/bash
-
-# Get operating system
-platform='unknown'
-unamestr=$(uname)
-if [[ $unamestr == 'Linux' ]]; then
-    platform='linux'
-elif [[ $unamestr == 'Darwin' ]]; then
-    platform='darwin'
-fi
-
 # Show human friendly numbers and colors
 alias df='df -h'
 alias du='du -h -d 2'
 
 # FS operations
-if [[ $platform == 'linux' ]]; then
-  alias ll='ls -alh --color=auto'
-  alias ls='ls --color=auto'
-elif [[ $platform == 'darwin' ]]; then
-  alias ll='ls -alGh'
-  alias ls='ls -Gh'
-fi
+alias ll='ls -alGh'
+alias ls='ls -Gh'
 
 # mimic vim functions
 alias :q='exit'

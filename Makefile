@@ -26,20 +26,15 @@ clean: #! Clean up all traces of these dotfiles.
 	@echo 'Dotfiles have been removed. Restart your terminal.'
 
 .PHONY: shell
-shell: #! Update bash to the newest version.
-	brew install bash bash-completion2
-	brew cask install iterm2
-	if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then \
-  		echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells; \
-  		chsh -s "${BREW_PREFIX}/bin/bash"; \
+shell: #! Configure zsh and install oh-my-zsh.
+	brew install --cask iterm2
+	if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then \
+  		echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells; \
+  		chsh -s "${BREW_PREFIX}/bin/zsh"; \
 	fi;
 
-	# Install fasd, a command line productivity booster
-	# https://github.com/clvv/fasd
-	brew install fasd
-
 	# Install the Solarized Dark theme
-	open "$(CURDIR)/system/Solarized Dark.itermcolors"
+	open "$(CURDIR)/utils/Solarized Dark.itermcolors"
 
 .PHONY: dnsmasq
 dnsmasq: #! Set up dnsmasq for routing to .docker hosts.
@@ -55,11 +50,14 @@ dnsmasq: #! Set up dnsmasq for routing to .docker hosts.
 
 .PHONY: dotfiles
 dotfiles: #! Install the dotfiles.
-	# Create symlinks to dotfiles.
-	for src in $(shell find -H $(CURDIR) -maxdepth 2 -name *.symlink -not -path '*.git'); do \
-		f=$$(basename $$src .symlink); \
-		ln -sfn $$src "$(HOME)/$$f"; \
+	@echo 'Creating symlinks to dotfiles.'
+	@for src in $(shell find -H $(CURDIR) -name "*.symlink" -not -path '*.git'); do \
+		dest=$(HOME)/$$(basename $$src .symlink); \
+		ln -sfn $$src $$dest; \
 	done;
+
+	@# Our oh-my-zsh plugins
+	@cp -R $(CURDIR)/zsh/.oh-my-zsh/ $(HOME)/.oh-my-zsh/
 
 	@echo 'Dotfiles have been installed. Restart your shell.'
 

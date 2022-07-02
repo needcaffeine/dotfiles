@@ -20,7 +20,7 @@ brew install \
 brew install --cask \
     mysql-shell \
     quicklook-json \
-    sequel-pro \
+    sequel-ace \
     visual-studio-code
 
 brew install --cask \
@@ -58,5 +58,6 @@ brew install --cask yubico-authenticator
 
 # Collaboration packages
 brew install --cask \
+    discord \
     slack \
     zoom

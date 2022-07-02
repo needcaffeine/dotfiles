@@ -16,18 +16,12 @@ help: #! Show this help message.
 	@fgrep -h "#!" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e "s/:.*#!/:/" | column -t -s":"
 
 .PHONY: bootstrap
-bootstrap: #! Set up our prerequisites.
+bootstrap: #! Install homebrew, oh-my-zsh, and iTerm.
 	@echo 'Setting up necessary dependencies...'
 	@/bin/sh bootstrap/install.sh
 
-.PHONY: clean
-clean: #! Clean up all traces of these dotfiles.
-	find $(HOME)/ -maxdepth 1 -lname '$(CURDIR)/*' -delete
-	@echo 'Dotfiles have been removed. Restart your terminal.'
-
-.PHONY: shell
-shell: #! Configure zsh and install oh-my-zsh.
-	brew install --cask iterm2
+	@# Configure zsh and install oh-my-zsh.
+	@brew install --cask iterm2
 	@if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then \
   		echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells; \
   		chsh -s "${BREW_PREFIX}/bin/zsh"; \
@@ -36,6 +30,11 @@ shell: #! Configure zsh and install oh-my-zsh.
 	@# Install the Solarized Dark theme
 	@echo "Open up iTerm now and run the following command:\n"
 	@echo 'open "$(CURDIR)/utils/Solarized Dark.itermcolors"'
+
+.PHONY: clean
+clean: #! Clean up all traces of these dotfiles.
+	find $(HOME)/ -maxdepth 1 -lname '$(CURDIR)/*' -delete
+	@echo 'Dotfiles have been removed. Restart your terminal.'
 
 .PHONY: dnsmasq
 dnsmasq: #! Set up dnsmasq for routing to .docker hosts.

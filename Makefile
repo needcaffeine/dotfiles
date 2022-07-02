@@ -28,13 +28,14 @@ clean: #! Clean up all traces of these dotfiles.
 .PHONY: shell
 shell: #! Configure zsh and install oh-my-zsh.
 	brew install --cask iterm2
-	if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then \
+	@if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then \
   		echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells; \
   		chsh -s "${BREW_PREFIX}/bin/zsh"; \
 	fi;
 
-	# Install the Solarized Dark theme
-	open "$(CURDIR)/utils/Solarized Dark.itermcolors"
+	@# Install the Solarized Dark theme
+	@echo "Open up iTerm now and run the following command:\n"
+	@echo 'open "$(CURDIR)/utils/Solarized Dark.itermcolors"'
 
 .PHONY: dnsmasq
 dnsmasq: #! Set up dnsmasq for routing to .docker hosts.

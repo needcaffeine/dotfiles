@@ -39,7 +39,8 @@ printf '\nInstalling collaboration and productivity packages...\n'
 
 # Browsers
 brew install --cask \
-    firefox
+    firefox \
+    google-chrome
 
 # Productivity boosters
 brew install \

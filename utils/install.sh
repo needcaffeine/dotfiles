@@ -45,9 +45,11 @@ brew install --cask \
 # Productivity boosters
 brew install \
     speedtest-cli \
+    tree \
     wget
 
 brew install --cask \
+    calibre \
     flux \
     keepingyouawake \
     lastpass \
@@ -62,3 +64,6 @@ brew install --cask \
     discord \
     slack \
     zoom
+
+npm i -g \
+    aws-cdk

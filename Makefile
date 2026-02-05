@@ -52,17 +52,22 @@ dnsmasq: #! Set up dnsmasq for routing to .docker hosts.
 dotfiles: #! Install the dotfiles.
 	@echo 'Creating symlinks to dotfiles.'
 	@for src in $(shell find -H $(CURDIR) -name "*.symlink" -not -path '*.git'); do \
-		if [ "$$src" = "$(CURDIR)/zsh/.zshrc.local.symlink" ]; then \
+		if [ "$$src" = "$(CURDIR)/zsh/.zshrc.local.symlink" ] || \
+		   [ "$$src" = "$(CURDIR)/git/.gitconfig.local.example.symlink" ]; then \
 			continue; \
 		fi; \
 		dest=$(HOME)/$$(basename $$src .symlink); \
 		ln -sfn $$src $$dest; \
 	done;
 
-	@# Seed local zsh config (not tracked by git)
+	@# Seed local configs (copied, not symlinked, so edits stay private)
 	@if [ ! -f "$(HOME)/.zshrc.local" ]; then \
 		echo 'Creating ~/.zshrc.local.'; \
 		cp "$(CURDIR)/zsh/.zshrc.local.symlink" "$(HOME)/.zshrc.local"; \
+	fi
+	@if [ ! -f "$(HOME)/.gitconfig.local" ]; then \
+		echo 'Creating ~/.gitconfig.local.'; \
+		cp "$(CURDIR)/git/.gitconfig.local.example.symlink" "$(HOME)/.gitconfig.local"; \
 	fi
 
 	@# Install Powerlevel10k

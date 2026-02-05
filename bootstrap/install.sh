@@ -19,5 +19,4 @@ printf '\n\nInstalling Rosetta 2.\n'
 sudo softwareupdate --install-rosetta
 printf '✅ Rosetta 2 is installed.'
 
-
 exit 0

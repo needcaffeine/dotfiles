@@ -13,6 +13,10 @@
 
 Running `make` will show you all available options. You may decide you don't want all the things this repo does.
 
+### local zsh config
+
+After install, a local config file is created at `~/.zshrc.local`. This file is not tracked by git and is intended for private functions, secrets, or machine-specific settings.
+
 ## updating
 
 You may periodically need to pull in my latest changes.

@@ -52,9 +52,27 @@ dnsmasq: #! Set up dnsmasq for routing to .docker hosts.
 dotfiles: #! Install the dotfiles.
 	@echo 'Creating symlinks to dotfiles.'
 	@for src in $(shell find -H $(CURDIR) -name "*.symlink" -not -path '*.git'); do \
+		if [ "$$src" = "$(CURDIR)/zsh/.zshrc.local.symlink" ]; then \
+			continue; \
+		fi; \
 		dest=$(HOME)/$$(basename $$src .symlink); \
 		ln -sfn $$src $$dest; \
 	done;
+
+	@# Seed local zsh config (not tracked by git)
+	@if [ ! -f "$(HOME)/.zshrc.local" ]; then \
+		echo 'Creating ~/.zshrc.local.'; \
+		cp "$(CURDIR)/zsh/.zshrc.local.symlink" "$(HOME)/.zshrc.local"; \
+	fi
+
+	@# Install Powerlevel10k
+	@if [ ! -d "$(HOME)/.oh-my-zsh/custom/themes/powerlevel10k" ]; then \
+		echo 'Installing Powerlevel10k.'; \
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$(HOME)/.oh-my-zsh/custom/themes/powerlevel10k"; \
+	else \
+		echo 'Updating Powerlevel10k.'; \
+		git -C "$(HOME)/.oh-my-zsh/custom/themes/powerlevel10k" pull --ff-only; \
+	fi
 
 	@# Our oh-my-zsh plugins
 	@cp -R $(CURDIR)/zsh/.oh-my-zsh/ $(HOME)/.oh-my-zsh/

@@ -1,0 +1,5 @@
+# Local/private zsh config. This file is copied to ~/.zshrc.local, and does not replace an existing ~/.zshrc.local.
+# Example:
+#privatefunction() {
+# echo "This is a private function."
+#}

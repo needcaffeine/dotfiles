@@ -1,22 +1,29 @@
 #!/bin/sh
 
-# Check for Homebrew
+# Stop on errors and unset variables.
+set -eu
+
+if [ "$(uname -m)" != "arm64" ]; then
+	printf 'This setup supports Apple silicon Macs only.\n' >&2
+	exit 1
+fi
+
+# Check for Homebrew.
 printf 'Checking for Homebrew...\n'
-if test ! $(which brew)
+if ! command -v brew >/dev/null 2>&1
 then
 	printf 'Installing Homebrew for you.\n'
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-printf '✅ Homebrew is installed.'
+eval "$(/opt/homebrew/bin/brew shellenv)"
+printf 'Homebrew is installed.\n'
 
 # Check for Oh My Zsh
-printf '\n\nInstalling Oh My Zsh for you.\n'
-ZSH= /bin/sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-printf '✅ Oh My Zsh is installed.'
-
-# Install Rosetta 2, for Macs with Apple silicon to use apps built for Intel
-printf '\n\nInstalling Rosetta 2.\n'
-sudo softwareupdate --install-rosetta
-printf '✅ Rosetta 2 is installed.'
+if [ ! -d "$HOME/.oh-my-zsh/.git" ]; then
+	printf 'Installing Oh My Zsh.\n'
+	git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+else
+	printf 'Oh My Zsh is already installed.\n'
+fi
 
 exit 0

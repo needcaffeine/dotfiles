@@ -1,17 +1,31 @@
 # dotfiles
 
-## disclaimers
+## requirements
 
-- Buyer beware
-- These dotfiles are guaranteed to work only in Mac OS. They will probably also work in Linux but I have not tested them.
+- macOS on Apple silicon
+- An administrator account
+- Internet access
 
 ## installing
 
     $ git clone https://github.com/needcaffeine/dotfiles.git ~/.dotfiles
     $ cd ~/.dotfiles
-    $ make
+    $ make all
 
-Running `make` will show you all available options. You may decide you don't want all the things this repo does.
+`make all` installs the shell environment, links the dotfiles, and installs the
+core development tools. It does not install optional desktop applications or
+configure dnsmasq.
+
+To install the optional desktop applications:
+
+    $ make apps
+
+To see every available target without changing the machine:
+
+    $ make help
+
+The setup is designed to be rerun safely. Homebrew skips packages and
+applications that are already installed.
 
 ### local zsh config
 
@@ -23,7 +37,7 @@ You may periodically need to pull in my latest changes.
 
     $ cd ~/.dotfiles
     $ git pull
-    $ make
+    $ make all
 
 ## thanks
 

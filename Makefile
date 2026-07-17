@@ -2,11 +2,11 @@
 .DEFAULT_GOAL := help
 
 # Build variables.
-PREFIX ?= $(PWD)
-BREW_PREFIX=$(brew --prefix)
+PREFIX ?= $(CURDIR)
+BREW_PREFIX := $(shell brew --prefix 2>/dev/null)
 
 .PHONY: all
-all: clean bootstrap dotfiles dnsmasq
+all: bootstrap dotfiles installers
 
 .PHONY: help
 help: #! Show this help message.
@@ -16,16 +16,12 @@ help: #! Show this help message.
 	@fgrep -h "#!" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e "s/:.*#!/:/" | column -t -s":"
 
 .PHONY: bootstrap
-bootstrap: #! Install homebrew, oh-my-zsh, and iTerm.
+bootstrap: #! Install Homebrew, Oh My Zsh, and iTerm2.
 	@echo 'Setting up necessary dependencies...'
 	@/bin/sh bootstrap/install.sh
 
-	@# Configure zsh and install oh-my-zsh.
+	@# macOS includes and configures zsh as the default login shell.
 	@brew install --cask iterm2
-	@if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then \
-  		echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells; \
-  		chsh -s "${BREW_PREFIX}/bin/zsh"; \
-	fi;
 
 	@# Install the Solarized Dark theme
 	@echo "Open up iTerm now and run the following command:\n"
@@ -39,13 +35,13 @@ clean: #! Clean up all traces of these dotfiles.
 .PHONY: dnsmasq
 dnsmasq: #! Set up dnsmasq for routing to .docker hosts.
 	brew install dnsmasq
-	$(RM) /usr/local/etc/dnsmasq.conf && \
-		mkdir -p /usr/local/etc/dnsmasq.d && \
-		ln -sfn $(CURDIR)/dnsmasq/dnsmasq.conf /usr/local/etc/dnsmasq.conf && \
-		ln -sfn $(CURDIR)/dnsmasq/dnsmasq.d/docker.conf /usr/local/etc/dnsmasq.d/docker.conf
+	$(RM) $(BREW_PREFIX)/etc/dnsmasq.conf && \
+		mkdir -p $(BREW_PREFIX)/etc/dnsmasq.d && \
+		ln -sfn $(CURDIR)/dnsmasq/dnsmasq.conf $(BREW_PREFIX)/etc/dnsmasq.conf && \
+		ln -sfn $(CURDIR)/dnsmasq/dnsmasq.d/docker.conf $(BREW_PREFIX)/etc/dnsmasq.d/docker.conf
 	sudo mkdir -p /etc/resolver && \
 		sudo ln -sfn $(CURDIR)/dnsmasq/resolver/docker /etc/resolver/docker
-	sudo brew services restart dnsmasq
+	brew services restart dnsmasq
 	sudo killall -HUP mDNSResponder; sudo dscacheutil -flushcache
 
 .PHONY: dotfiles
@@ -85,7 +81,11 @@ dotfiles: #! Install the dotfiles.
 	@echo 'Dotfiles have been installed. Restart your shell.'
 
 .PHONY: installers
-installers: #! Run any installers.
+installers: #! Install core development tools.
 	for installer in $(shell find -H $(CURDIR) -maxdepth 2 -name install.sh -not -path '*.git' -not -path '*bootstrap*'); do \
 		/bin/sh $$installer; \
 	done;
+
+.PHONY: apps
+apps: #! Install optional GUI, communication, and productivity apps.
+	@/bin/sh utils/apps.sh

@@ -1,59 +1,32 @@
 #!/bin/sh
 
+set -eu
+
 # Install things we need for local development.
 printf '\nInstalling development packages...\n'
 
-# Javascript development
-brew install \
-    jq \
-    node \
-    nvm \
-    yarn
-mkdir -p ~/.nvm
-
-# IDEs and other guis
-brew install --cask \
-    mysql-shell \
-    quicklook-json \
-    sequel-ace \
-    visual-studio-code
-
-brew install --cask \
-    docker
-
-# Compilers, and clis.
+# Shell and development tools.
 brew install \
     awscli \
     coreutils \
     gcc \
     gettext \
-    pkg-config
-brew link --force gettext
-
-# Install things we use for collaboration and productivity.
-printf '\nInstalling collaboration and productivity packages...\n'
-
-# Browsers
-brew install --cask \
-    google-chrome
-
-# Productivity boosters
-brew install \
-    speedtest-cli \
+    jq \
+    nvm \
+    pkg-config \
     tree \
-    wget
+    wget \
+    zoxide \
+    zsh-autosuggestions \
+    zsh-syntax-highlighting
+mkdir -p ~/.nvm
 
-# Various tools
-brew install --cask \
-    1password \
-    calibre \
-    keepingyouawake \
-    raycast \
-    yubico-authenticator
+# Install the current Node.js LTS release through NVM. Node ships with Corepack,
+# which manages Yarn and pnpm without separate global Homebrew packages.
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
+nvm install --lts
+nvm alias default 'lts/*'
+corepack enable
 
-# Collaboration packages
-brew install --cask \
-    discord \
-    slack \
-    telegram \
-    zoom
+brew link --force gettext

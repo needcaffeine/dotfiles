@@ -3,6 +3,7 @@
 
 # Build variables.
 PREFIX ?= $(CURDIR)
+export PATH := /opt/homebrew/bin:$(PATH)
 BREW_PREFIX := $(shell brew --prefix 2>/dev/null)
 
 .PHONY: all
